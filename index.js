@@ -38,13 +38,19 @@ const openBrowser = async (
 ) => {
   try {
     const sessionCreateResponse = await axios.post(
-      "<LT_CLOSE_SESSION_URL>",
+      "https://asad-cdp.dev.lambdatest.io/cdp/session",
       capabilities
     );
     session =
       sessionCreateResponse &&
       sessionCreateResponse.data &&
       sessionCreateResponse.data.session;
+
+    console.log(
+      "sessionCreateResponse, session=====>",
+      sessionCreateResponse,
+      session
+    );
 
     return taiko.openBrowser({
       headless,
