@@ -1,0 +1,39 @@
+{
+  "name": "lambdatest-taiko-test",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . && echo '✔  Your .js files look good.'",
+    "lint-fix": "eslint . --fix",
+    "test": "npm run lint"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LambdaTest/lambdatest-taiko-test.git"
+  },
+  "author": "Ankur Narkhede",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LambdaTest/lambdatest-taiko-test/issues"
+  },
+  "homepage": "https://github.com/LambdaTest/lambdatest-taiko-test#readme",
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-mocha": "^9.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-security": "^1.4.0",
+    "pre-commit": "^1.2.2",
+    "prettier": "^2.4.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.4",
+    "taiko": "^1.2.7"
+  }
+}
