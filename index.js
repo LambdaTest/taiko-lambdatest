@@ -38,7 +38,7 @@ const openBrowser = async (
 ) => {
   try {
     const sessionCreateResponse = await axios.post(
-      "https://asad-cdp.dev.lambdatest.io/cdp/session",
+      "https://asad-cdp.dev.lambdatest.io:31333/cdp/session",
       capabilities
     );
     session =
