@@ -18,7 +18,7 @@ let session;
  * @param {boolean} [options.observe=false] - Option to run each command after a delay. Useful to observe what is happening in the browser.
  * @param {number} [options.observeTime=3000] - Option to modify delay time for observe mode. Accepts value in milliseconds.
  * @param {boolean} [options.dumpio=false] - Option to dump IO from browser.
- * @param {Object} [capibilities] - Test capibilities
+ * @param {Object} [capabilities] - Test capabilities
  *
  * @returns {Promise<void>}
  */
@@ -34,12 +34,12 @@ const openBrowser = async (
     observeTime,
     dumpio,
   },
-  capibilities
+  capabilities
 ) => {
   try {
     const sessionCreateResponse = await axios.post(
       "<LT_CLOSE_SESSION_URL>",
-      capibilities
+      capabilities
     );
     session =
       sessionCreateResponse &&
