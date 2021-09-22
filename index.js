@@ -39,8 +39,10 @@ const openBrowser = async (
   try {
     const sessionCreateResponse = await axios.post(
       "http://asad-cdp.dev.lambdatest.io:31333/cdp/session",
+      // "https://postman-echo.com/post",
       capabilities
     );
+
     session =
       sessionCreateResponse &&
       sessionCreateResponse.data &&
@@ -62,9 +64,17 @@ const openBrowser = async (
       observe,
       observeTime,
       dumpio,
-      alterPath: (path) =>
-        // Add session ID as a query param to all paths
-        `${path}?session=${session}`,
+      alterPath: (path) => {
+        console.log("PATH=====>", path);
+        if (path.includes("/ws_endpoint")) {
+          return `${path}/${session}`;
+        }
+        if (path.includes("devtools")) {
+          return `${path}/${session}`;
+        }
+
+        return `${path}?session=${session}`;
+      },
     });
   } catch (e) {
     console.error("Error occurred in opening the browser session: ", e);
