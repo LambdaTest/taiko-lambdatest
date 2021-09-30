@@ -1,6 +1,6 @@
 {
-  "name": "lambdatest-taiko-test",
-  "version": "0.0.4",
+  "name": "lambdatest-taiko",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
