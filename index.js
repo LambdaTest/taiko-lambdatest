@@ -1,4 +1,4 @@
-const taiko = require("taiko");
+const taiko = require("lt-taiko");
 const axios = require("axios");
 
 // Session ID to be used in paths and to close the session
