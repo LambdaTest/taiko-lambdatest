@@ -41,9 +41,7 @@ const openBrowser = async (
       method: "post",
       baseURL: `http://${host}:${port}`,
       url: "/cdp/session",
-      data: {
-        capabilities,
-      },
+      data: capabilities,
     });
 
     session =
