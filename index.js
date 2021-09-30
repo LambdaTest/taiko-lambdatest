@@ -37,22 +37,19 @@ const openBrowser = async (
   capabilities
 ) => {
   try {
-    const sessionCreateResponse = await axios.post(
-      "http://asad-cdp.dev.lambdatest.io:31333/cdp/session",
-      // "https://postman-echo.com/post",
-      capabilities
-    );
+    const sessionCreateResponse = await axios({
+      method: "post",
+      baseURL: `http://${host}:${port}`,
+      url: "/cdp/session",
+      data: {
+        capabilities,
+      },
+    });
 
     session =
       sessionCreateResponse &&
       sessionCreateResponse.data &&
       sessionCreateResponse.data.session;
-
-    console.log(
-      "sessionCreateResponse, session=====>",
-      sessionCreateResponse,
-      session
-    );
 
     return taiko.openBrowser({
       headless,
@@ -88,16 +85,7 @@ const openBrowser = async (
  */
 const closeBrowser = async () => {
   try {
-    const closeResponse = await taiko.closeBrowser();
-    if (session) {
-      await axios.delete("<LT_CLOSE_SESSION_URL>", {
-        params: {
-          session,
-        },
-      });
-    }
-
-    return closeResponse;
+    return await taiko.closeBrowser();
   } catch (e) {
     console.error("Error occurred in closing the browser session: ", e);
     return e;

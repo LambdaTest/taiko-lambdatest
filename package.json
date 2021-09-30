@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
-    "taiko": "^1.2.7"
+    "taiko": "git+ssh://git@github.com:ankur-lt/taiko.git"
   }
 }
