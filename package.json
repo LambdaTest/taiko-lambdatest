@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
-    "taiko": "git+https://git@github.com:ankur-lt/taiko.git#v1.2.8-beta.1"
+    "taiko": "git+https://git@github.com:ankur-lt/lt-taiko.git#v1.2.8-beta.2"
   }
 }
