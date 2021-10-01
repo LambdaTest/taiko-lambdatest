@@ -8,8 +8,6 @@ A plugin to run [Taiko](https://taiko.dev/) tests on [LambdaTest](https://lambda
 npm install lambdatest-taiko --save-dev
 ```
 
-A plugin to run Taiko tests in Selenoid cluster
-
 ### Usage
 
 ```javascript
