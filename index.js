@@ -5,6 +5,7 @@ const axios = require("axios");
 let session;
 let cdpHost;
 let cdpPort;
+let wsPath;
 
 /**
  * Launches a browser with a tab. The browser will be closed when the parent node.js process is closed.
@@ -38,6 +39,7 @@ const openBrowser = async (
     const targetWSURL = new URL(target);
     cdpHost = targetWSURL.hostname;
     cdpPort = targetWSURL.port;
+    wsPath = targetWSURL.pathname;
 
     const sessionCreateResponse = await axios({
       method: "post",
@@ -62,7 +64,7 @@ const openBrowser = async (
       observeTime,
       dumpio,
       alterPath: (path) => {
-        if (path.includes("/ws_endpoint")) {
+        if (path.includes(wsPath)) {
           return `${path}/${session}`;
         }
         if (path.includes("devtools")) {
