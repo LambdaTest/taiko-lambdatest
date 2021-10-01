@@ -1,6 +1,6 @@
 {
   "name": "lambdatest-taiko",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "axios": "^0.21.4",
-    "lt-taiko": "git+https://git@github.com:ankur-lt/lt-taiko.git#v1.2.8-beta.2"
+    "taiko": "1.2.7"
   }
 }

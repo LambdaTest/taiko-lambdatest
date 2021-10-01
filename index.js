@@ -1,8 +1,10 @@
-const taiko = require("lt-taiko");
+const taiko = require("taiko");
 const axios = require("axios");
 
 // Session ID to be used in paths and to close the session
 let session;
+let cdpHost;
+let cdpPort;
 
 /**
  * Launches a browser with a tab. The browser will be closed when the parent node.js process is closed.
@@ -37,9 +39,12 @@ const openBrowser = async (
   capabilities
 ) => {
   try {
+    cdpHost = host;
+    cdpPort = port;
+
     const sessionCreateResponse = await axios({
       method: "post",
-      baseURL: `http://${host}:${port}`,
+      baseURL: `http://${cdpHost}:${cdpPort}`,
       url: "/cdp/session",
       data: capabilities,
     });
@@ -83,7 +88,20 @@ const openBrowser = async (
  */
 const closeBrowser = async () => {
   try {
-    return await taiko.closeBrowser();
+    let closeResponse;
+
+    if (session) {
+      closeResponse = await axios({
+        method: "delete",
+        baseURL: `http://${cdpHost}:${cdpPort}`,
+        url: "/cdp/session",
+        params: {
+          session,
+        },
+      });
+    }
+
+    return closeResponse;
   } catch (e) {
     console.error("Error occurred in closing the browser session: ", e);
     return e;
