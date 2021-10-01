@@ -13,9 +13,7 @@ let cdpPort;
  * @param {Object} [options={headless:true}] eg. {headless: true|false, args:['--window-size=1440,900']}
  * @param {boolean} [options.headless=true] - Option to open browser in headless/headful mode.
  * @param {Array<string>} [options.args=[]] - [Chromium browser launch options](https://peter.sh/experiments/chromium-command-line-switches/).
- * @param {string} [options.host='127.0.0.1'] - Remote host to connect to.
  * @param {string} [options.target] - Determines which target the client should interact.(https://github.com/cyrus-and/chrome-remote-interface#cdpoptions-callback)
- * @param {number} [options.port=0] - Remote debugging port, if not given connects to any open port.
  * @param {boolean} [options.ignoreCertificateErrors=true] - Option to ignore certificate errors.
  * @param {boolean} [options.observe=false] - Option to run each command after a delay. Useful to observe what is happening in the browser.
  * @param {number} [options.observeTime=3000] - Option to modify delay time for observe mode. Accepts value in milliseconds.
@@ -28,8 +26,6 @@ const openBrowser = async (
   {
     headless,
     args,
-    host,
-    port,
     target,
     ignoreCertificateErrors,
     observe,
@@ -39,8 +35,9 @@ const openBrowser = async (
   capabilities
 ) => {
   try {
-    cdpHost = host;
-    cdpPort = port;
+    const targetWSURL = new URL(target);
+    cdpHost = targetWSURL.host;
+    cdpPort = targetWSURL.port;
 
     const sessionCreateResponse = await axios({
       method: "post",
@@ -57,15 +54,14 @@ const openBrowser = async (
     return taiko.openBrowser({
       headless,
       args,
-      host,
-      port,
+      host: cdpHost,
+      port: cdpPort,
       target,
       ignoreCertificateErrors,
       observe,
       observeTime,
       dumpio,
       alterPath: (path) => {
-        console.log("PATH=====>", path);
         if (path.includes("/ws_endpoint")) {
           return `${path}/${session}`;
         }
