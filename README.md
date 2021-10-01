@@ -28,7 +28,9 @@ describe('Taiko Tests', async () => {
   beforeSuite('Before Test Suite', async () => {
     await openBrowser({
       target: `ws://<remote_host>:<remote_port>/taiko`
-    }); // Opens the browser on a remote machine
+    },
+        capabilities
+    ); // Opens the browser on a remote machine
   });
 
   afterSuite('After Test Suite', async () => {
