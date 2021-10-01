@@ -1,6 +1,6 @@
-# Taiko-LambdaTest
+# LambdaTest Taiko
 
-A plugin to run [Taiko](https://taiko.dev/) tests on LambdaTest Platform.
+A plugin to run [Taiko](https://taiko.dev/) tests on [LambdaTest](https://lambdatest.com/) Platform.
 
 ### Installation
 
@@ -8,14 +8,13 @@ A plugin to run [Taiko](https://taiko.dev/) tests on LambdaTest Platform.
 npm install lambdatest-taiko --save-dev
 ```
 
-A plugin to run taiko tests in Selenoid cluster
+A plugin to run Taiko tests in Selenoid cluster
 
 ### Usage
 
-Add `TAIKO_PLUGIN=taiko-lambdatest` to your env
-
 ```javascript
-const { openBrowser, closeBrowser } = require('taiko');
+const { openBrowser, closeBrowser } = require('lambdatest-taiko');
+const { goto } = require('taiko');
 
 describe('Taiko Tests', async () => {
   const capabilities = {
@@ -38,8 +37,9 @@ describe('Taiko Tests', async () => {
     await closeBrowser(); // Will close the browser and the test session
   });
 
-  it('Taiko Test', async () => {
-    await goto('google.com');
+  // Test step for the added taiko spec files
+  step('Navigate to <url>', async url => {
+    await goto(url)
   });
 });
 ```

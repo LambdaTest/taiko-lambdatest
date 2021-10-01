@@ -36,7 +36,7 @@ const openBrowser = async (
 ) => {
   try {
     const targetWSURL = new URL(target);
-    cdpHost = targetWSURL.host;
+    cdpHost = targetWSURL.hostname;
     cdpPort = targetWSURL.port;
 
     const sessionCreateResponse = await axios({

@@ -1,6 +1,6 @@
 {
-  "name": "taiko-lambdatest",
-  "version": "0.0.7",
+  "name": "lambdatest-taiko",
+  "version": "0.0.8",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LambdaTest/taiko-lambdatest.git"
+    "url": "git+https://github.com/LambdaTest/lambdatest-taiko.git"
   },
   "author": "Ankur Narkhede",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LambdaTest/taiko-lambdatest/issues"
+    "url": "https://github.com/LambdaTest/lambdatest-taiko/issues"
   },
-  "homepage": "https://github.com/LambdaTest/taiko-lambdatest#readme",
+  "homepage": "https://github.com/LambdaTest/lambdatest-taiko#readme",
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
