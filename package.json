@@ -1,6 +1,6 @@
 {
-  "name": "lambdatest-taiko",
-  "version": "0.0.11",
+  "name": "taiko-lambdatest",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/LambdaTest/lambdatest-taiko.git"
   },
-  "author": "Ankur Narkhede",
+  "author": "LambdaTest, Inc.",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/LambdaTest/lambdatest-taiko/issues"
@@ -33,7 +33,6 @@
     "prettier": "^2.4.1"
   },
   "dependencies": {
-    "axios": "^0.21.4",
-    "taiko": "1.2.7"
+    "axios": "^0.21.4"
   }
 }

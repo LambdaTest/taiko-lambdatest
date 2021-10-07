@@ -1,18 +1,17 @@
-# LambdaTest Taiko
+# Taiko Lambdatest
 
 A plugin to run [Taiko](https://taiko.dev/) tests on [LambdaTest](https://lambdatest.com/) Platform.
 
 ### Installation
 
 ```shell
-npm install lambdatest-taiko --save-dev
+npm install taiko-lambdatest --save-dev
 ```
 
 ### Usage
 
 ```javascript
-const { openBrowser, closeBrowser } = require('lambdatest-taiko');
-const { goto } = require('taiko');
+const { goto, openBrowser, closeBrowser } = require('taiko');
 
 describe('Taiko Tests', async () => {
   const capabilities = {

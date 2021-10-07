@@ -1,4 +1,3 @@
-const taiko = require("taiko");
 const axios = require("axios");
 
 // Session ID to be used in paths and to close the session
@@ -6,6 +5,14 @@ let session;
 let cdpHost;
 let cdpPort;
 let wsPath;
+let openRemoteBrowser;
+
+const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
+  openRemoteBrowser = taiko.openBrowser;
+  registerHooks({
+    preConnectionHook: (target, options) => ({ target, options }),
+  });
+};
 
 /**
  * Launches a browser with a tab. The browser will be closed when the parent node.js process is closed.
@@ -53,7 +60,7 @@ const openBrowser = async (
       sessionCreateResponse.data &&
       sessionCreateResponse.data.session;
 
-    return taiko.openBrowser({
+    return openRemoteBrowser({
       headless,
       args,
       host: cdpHost,
@@ -107,6 +114,7 @@ const closeBrowser = async () => {
 };
 
 module.exports = {
+  init,
   openBrowser,
   closeBrowser,
 };
