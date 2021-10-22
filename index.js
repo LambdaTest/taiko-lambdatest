@@ -3,9 +3,11 @@ const axios = require("axios");
 // Session ID to be used in paths and to close the session
 let session;
 let cdpHost;
+let cdpHostname;
 let cdpPort;
 let wsPath;
 let openRemoteBrowser;
+let protocol;
 
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
@@ -44,13 +46,15 @@ const openBrowser = async (
 ) => {
   try {
     const targetWSURL = new URL(target);
-    cdpHost = targetWSURL.hostname;
+    cdpHost = targetWSURL.host; // contains port too
+    cdpHostname = targetWSURL.hostname;
     cdpPort = targetWSURL.port;
     wsPath = targetWSURL.pathname;
+    protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
 
     const sessionCreateResponse = await axios({
       method: "post",
-      baseURL: `http://${cdpHost}:${cdpPort}`,
+      baseURL: `${protocol}//${cdpHost}`,
       url: "/cdp/session",
       data: capabilities,
     });
@@ -63,7 +67,7 @@ const openBrowser = async (
     return openRemoteBrowser({
       headless,
       args,
-      host: cdpHost,
+      host: cdpHostname,
       port: cdpPort,
       target,
       ignoreCertificateErrors,
@@ -98,7 +102,7 @@ const closeBrowser = async () => {
     if (session) {
       closeResponse = await axios({
         method: "delete",
-        baseURL: `http://${cdpHost}:${cdpPort}`,
+        baseURL: `${protocol}//${cdpHost}`,
         url: "/cdp/session",
         params: {
           session,
