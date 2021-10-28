@@ -48,7 +48,7 @@ const openBrowser = async (
     const targetWSURL = new URL(target);
     cdpHost = targetWSURL.host; // contains port too
     cdpHostname = targetWSURL.hostname;
-    cdpPort = targetWSURL.port;
+    cdpPort = 80 || targetWSURL.port; // Set port as 80 as the request is made without https protocol
     wsPath = targetWSURL.pathname;
     protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
 
@@ -74,6 +74,7 @@ const openBrowser = async (
       observe,
       observeTime,
       dumpio,
+      useHostName: true,
       alterPath: (path) => {
         if (path.includes(wsPath)) {
           return `${path}/${session}`;
