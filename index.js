@@ -12,7 +12,10 @@ let protocol;
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
   registerHooks({
-    preConnectionHook: (target, options) => ({ target, options }),
+    preConnectionHook: (target, options) => {
+      taiko.setConfig({ waitForNavigation: false });
+      return { target, options };
+    },
   });
 };
 
@@ -87,7 +90,7 @@ const openBrowser = async (
       },
     });
   } catch (e) {
-    console.error("Error occurred in opening the browser session: ", e);
+    console.error("Error occurred in opening the browser session: ", e.message);
     return e;
   }
 };
@@ -113,7 +116,7 @@ const closeBrowser = async () => {
 
     return closeResponse;
   } catch (e) {
-    console.error("Error occurred in closing the browser session: ", e);
+    console.error("Error occurred in closing the browser session: ", e.message);
     return e;
   }
 };
