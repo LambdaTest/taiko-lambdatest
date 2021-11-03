@@ -90,7 +90,7 @@ const openBrowser = async (
       },
     });
   } catch (e) {
-    console.error("Error occurred in opening the browser session: ", e.message);
+    console.error("Error occurred in opening the browser session: ", e);
     return e;
   }
 };
@@ -116,7 +116,7 @@ const closeBrowser = async () => {
 
     return closeResponse;
   } catch (e) {
-    console.error("Error occurred in closing the browser session: ", e.message);
+    console.error("Error occurred in closing the browser session: ", e);
     return e;
   }
 };
