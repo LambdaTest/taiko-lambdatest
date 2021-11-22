@@ -8,11 +8,15 @@ let cdpPort;
 let wsPath;
 let openRemoteBrowser;
 let protocol;
+let secure;
 
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
   registerHooks({
-    preConnectionHook: (target, options) => ({ target, options }),
+    preConnectionHook: (target, options) => {
+      taiko.setConfig({ waitForNavigation: false });
+      return { target, options };
+    },
   });
 };
 
@@ -48,9 +52,11 @@ const openBrowser = async (
     const targetWSURL = new URL(target);
     cdpHost = targetWSURL.host; // contains port too
     cdpHostname = targetWSURL.hostname;
-    cdpPort = 80 || targetWSURL.port; // Set port as 80 as the request is made without https protocol
+    cdpPort =
+      targetWSURL.port || (targetWSURL.protocol.includes("wss") ? 443 : 80);
     wsPath = targetWSURL.pathname;
     protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
+    secure = targetWSURL.protocol.includes("wss");
 
     const sessionCreateResponse = await axios({
       method: "post",
@@ -75,6 +81,7 @@ const openBrowser = async (
       observeTime,
       dumpio,
       useHostName: true,
+      secure,
       alterPath: (path) => {
         if (path.includes(wsPath)) {
           return `${path}/${session}`;
