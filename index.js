@@ -9,6 +9,7 @@ let wsPath;
 let openRemoteBrowser;
 let protocol;
 let secure;
+let lambdatestSession = false;
 
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
@@ -24,7 +25,7 @@ const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
  * Launches a browser with a tab. The browser will be closed when the parent node.js process is closed.
  * Makes an API call to LambdaTest to get the session ID and appends it to all the requests being triggered as query params
  *
- * @param {Object} [options={headless:true}] eg. {headless: true|false, args:['--window-size=1440,900']}
+ * @param {Object} [options={headless:true}] eg. {headless: true|false, args:["--window-size=1440,900"]}
  * @param {boolean} [options.headless=true] - Option to open browser in headless/headful mode.
  * @param {Array<string>} [options.args=[]] - [Chromium browser launch options](https://peter.sh/experiments/chromium-command-line-switches/).
  * @param {string} [options.target] - Determines which target the client should interact.(https://github.com/cyrus-and/chrome-remote-interface#cdpoptions-callback)
@@ -58,17 +59,22 @@ const openBrowser = async (
     protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
     secure = targetWSURL.protocol.includes("wss");
 
-    const sessionCreateResponse = await axios({
-      method: "post",
-      baseURL: `${protocol}//${cdpHost}`,
-      url: "/cdp/session",
-      data: capabilities,
-    });
+    // Create a LambdaTest session call if target includes 'lambdatest'
+    if (cdpHostname.includes("lambdatest")) {
+      const sessionCreateResponse = await axios({
+        method: "post",
+        baseURL: `${protocol}//${cdpHost}`,
+        url: "/cdp/session",
+        data: capabilities,
+      });
 
-    session =
-      sessionCreateResponse &&
-      sessionCreateResponse.data &&
-      sessionCreateResponse.data.session;
+      session =
+        sessionCreateResponse &&
+        sessionCreateResponse.data &&
+        sessionCreateResponse.data.session;
+
+      lambdatestSession = true;
+    }
 
     return openRemoteBrowser({
       headless,
@@ -82,19 +88,22 @@ const openBrowser = async (
       dumpio,
       useHostName: true,
       secure,
-      alterPath: (path) => {
-        if (path.includes(wsPath)) {
-          return `${path}/${session}`;
-        }
-        if (path.includes("devtools")) {
-          return `${path}/${session}`;
-        }
+      ...(lambdatestSession && {
+        // specify alterPath only in case of lambdatestSession
+        alterPath: (path) => {
+          if (path.includes(wsPath)) {
+            return `${path}/${session}`;
+          }
+          if (path.includes("devtools")) {
+            return `${path}/${session}`;
+          }
 
-        return `${path}?session=${session}`;
-      },
+          return `${path}?session=${session}`;
+        },
+      }),
     });
   } catch (e) {
-    console.error("Error occurred in opening the browser session: ", e);
+    console.error("Error occurred in opening the browser session: ", e.stack);
     return e;
   }
 };
@@ -107,7 +116,8 @@ const closeBrowser = async () => {
   try {
     let closeResponse;
 
-    if (session) {
+    // Call the delete session API if 'lambdatestSession' is set
+    if (session && lambdatestSession) {
       closeResponse = await axios({
         method: "delete",
         baseURL: `${protocol}//${cdpHost}`,
@@ -120,7 +130,7 @@ const closeBrowser = async () => {
 
     return closeResponse;
   } catch (e) {
-    console.error("Error occurred in closing the browser session: ", e);
+    console.error("Error occurred in closing the browser session: ", e.stack);
     return e;
   }
 };
