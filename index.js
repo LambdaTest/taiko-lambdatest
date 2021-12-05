@@ -7,12 +7,14 @@ let cdpHostname;
 let cdpPort;
 let wsPath;
 let openRemoteBrowser;
+let closeRemoteBrowser;
 let protocol;
 let secure;
 let lambdatestSession = false;
 
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
+  closeRemoteBrowser = taiko.closeBrowser;
   registerHooks({
     preConnectionHook: (target, options) => {
       taiko.setConfig({ waitForNavigation: false });
@@ -126,6 +128,8 @@ const closeBrowser = async () => {
           session,
         },
       });
+    } else {
+      await closeRemoteBrowser();
     }
 
     return closeResponse;
