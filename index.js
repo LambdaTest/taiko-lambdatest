@@ -16,10 +16,10 @@ const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
   closeRemoteBrowser = taiko.closeBrowser;
   registerHooks({
-    preConnectionHook: (target, options) => {
-      taiko.setConfig({ waitForNavigation: false });
-      return { target, options };
-    },
+    preConnectionHook: (target, options) =>
+      // waitForNavigation removed temporarily
+      // taiko.setConfig({ waitForNavigation: false });
+      ({ target, options }),
   });
 };
 
