@@ -16,13 +16,16 @@ const { goto, openBrowser, closeBrowser } = require('taiko');
 describe('Taiko Tests', async () => {
   const capabilities = {
     'browserName': 'Chrome',
-    'version': '93.0',
-    'platform': 'MacOS Catalina',
-    'build': '<Build Name>',
-    'name': '<Test Name>',
-    'username': '<username>',
-    'access_key': '<access_key>',
-  };
+    'browserVersion': '93.0',
+    'LT:Options': {
+      'platform': 'Windows 10',
+      'build': '<Build Name>',
+      'name': '<Test Name>',
+      'user': '<username>',
+      'accessKey': '<accessKey>',
+      'network': true
+    }
+  }
   
   beforeSuite('Before Test Suite', async () => {
     await openBrowser({
