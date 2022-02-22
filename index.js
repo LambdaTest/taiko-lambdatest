@@ -11,6 +11,8 @@ let closeRemoteBrowser;
 let protocol;
 let secure;
 let lambdatestSession = false;
+let user;
+let accessKey;
 
 const init = (taiko, eventHandlerProxy, descEvent, registerHooks) => {
   openRemoteBrowser = taiko.openBrowser;
@@ -60,6 +62,8 @@ const openBrowser = async (
     wsPath = targetWSURL.pathname;
     protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
     secure = targetWSURL.protocol.includes("wss");
+    user = capabilities["LT:Options"].user;
+    accessKey = capabilities["LT:Options"].accessKey;
 
     // Create a LambdaTest session call if target includes 'lambdatest'
     if (cdpHostname.includes("lambdatest")) {
@@ -112,9 +116,11 @@ const openBrowser = async (
 
 /**
  * Closes the browser session and makes an API call to lambdatest to cleanup resources
- * @returns {Promise<void>}
+ *
+ * @param {String} [status] - Test's final status {"completed", "failed"}
+ * @returns {Promise<AxiosResponse<any>|*>}
  */
-const closeBrowser = async () => {
+const closeBrowser = async (status) => {
   try {
     let closeResponse;
 
@@ -126,6 +132,11 @@ const closeBrowser = async () => {
         url: "/cdp/session",
         params: {
           session,
+          status,
+        },
+        auth: {
+          username: user,
+          password: accessKey,
         },
       });
     } else {
