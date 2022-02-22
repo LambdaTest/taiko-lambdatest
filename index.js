@@ -117,12 +117,18 @@ const openBrowser = async (
 /**
  * Closes the browser session and makes an API call to lambdatest to cleanup resources
  *
- * @param {String} [status] - Test's final status {"completed", "failed"}
+ * @param {Object} [taikoContext] - Taiko context object
  * @returns {Promise<AxiosResponse<any>|*>}
  */
-const closeBrowser = async (status) => {
+const closeBrowser = async (taikoContext) => {
   try {
     let closeResponse;
+    const status =
+      taikoContext &&
+      taikoContext.currentSpec &&
+      taikoContext.currentSpec.isFailed
+        ? "failed"
+        : "completed";
 
     // Call the delete session API if 'lambdatestSession' is set
     if (session && lambdatestSession) {
