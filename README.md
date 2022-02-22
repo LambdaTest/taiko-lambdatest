@@ -27,7 +27,7 @@ describe('Taiko Tests', async () => {
     }
   }
   
-  beforeSuite('Before Test Suite', async () => {
+  beforeScenario('Before Test Suite', async () => {
     await openBrowser({
       target: `ws://<remote_host>:<remote_port>/taiko`
     },
@@ -35,8 +35,8 @@ describe('Taiko Tests', async () => {
     ); // Opens the browser on a remote machine
   });
 
-  afterSuite('After Test Suite', async () => {
-    await closeBrowser(); // Will close the browser and the test session
+  afterScenario('After Test Suite', async (context) => {
+    await closeBrowser(context); // Will close the browser and the test session
   });
 
   // Test step for the added taiko spec files
