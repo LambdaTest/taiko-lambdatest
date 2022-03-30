@@ -1,4 +1,5 @@
 const axios = require("axios");
+const pluginPackage = require("./package.json");
 
 // Session ID to be used in paths and to close the session
 let session;
@@ -72,6 +73,9 @@ const openBrowser = async (
         baseURL: `${protocol}//${cdpHost}`,
         url: "/cdp/session",
         data: capabilities,
+        params: {
+          pluginVersion: pluginPackage.version,
+        },
       });
 
       session =
@@ -142,6 +146,7 @@ const closeBrowser = async (taikoContext) => {
         params: {
           session,
           status,
+          pluginVersion: pluginPackage.version,
         },
         auth: {
           username: user,
@@ -154,7 +159,10 @@ const closeBrowser = async (taikoContext) => {
 
     return closeResponse;
   } catch (e) {
-    console.error("Error occurred in closing the browser session: ", e.stack);
+    console.error(
+      "Error occurred in closing the browser session: ",
+      e.response.data
+    );
     return e;
   }
 };
