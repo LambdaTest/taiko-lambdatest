@@ -113,10 +113,7 @@ const openBrowser = async (
       }),
     });
   } catch (e) {
-    console.error(
-      "Error occurred in opening the browser session: ",
-      e.response.data
-    );
+    console.error("Error occurred in opening the browser session: ", e.stack);
     return e;
   }
 };
