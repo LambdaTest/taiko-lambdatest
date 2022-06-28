@@ -156,10 +156,7 @@ const closeBrowser = async (taikoContext) => {
 
     return closeResponse;
   } catch (e) {
-    console.error(
-      "Error occurred in closing the browser session: ",
-      e.response.data
-    );
+    console.error("Error occurred in closing the browser session: ", e.stack);
     return e;
   }
 };
