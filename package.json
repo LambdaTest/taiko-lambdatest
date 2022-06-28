@@ -1,6 +1,6 @@
 {
   "name": "taiko-lambdatest",
-  "version": "0.1.9",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,14 +13,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LambdaTest/lambdatest-taiko.git"
+    "url": "git+https://github.com/LambdaTest/taiko-lambdatest.git"
   },
   "author": "LambdaTest, Inc.",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LambdaTest/lambdatest-taiko/issues"
+    "url": "https://github.com/LambdaTest/taiko-lambdatest/issues"
   },
-  "homepage": "https://github.com/LambdaTest/lambdatest-taiko#readme",
+  "homepage": "https://github.com/LambdaTest/taiko-lambdatest#readme",
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
