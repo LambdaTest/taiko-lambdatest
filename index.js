@@ -55,19 +55,24 @@ const openBrowser = async (
   capabilities
 ) => {
   try {
-    const targetWSURL = new URL(target);
-    cdpHost = targetWSURL.host; // contains port too
-    cdpHostname = targetWSURL.hostname;
-    cdpPort =
-      targetWSURL.port || (targetWSURL.protocol.includes("wss") ? 443 : 80);
-    wsPath = targetWSURL.pathname;
-    protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
-    secure = targetWSURL.protocol.includes("wss");
-    user = capabilities["LT:Options"].user;
-    accessKey = capabilities["LT:Options"].accessKey;
+    if (target) {
+      const targetWSURL = new URL(target);
+      cdpHost = targetWSURL.host; // contains port too
+      cdpHostname = targetWSURL.hostname;
+      cdpPort =
+        targetWSURL.port || (targetWSURL.protocol.includes("wss") ? 443 : 80);
+      wsPath = targetWSURL.pathname;
+      protocol = targetWSURL.protocol.includes("wss") ? "https:" : "http:";
+      secure = targetWSURL.protocol.includes("wss");
+    }
+
+    if (capabilities && capabilities["LT:Options"]) {
+      user = capabilities["LT:Options"].user;
+      accessKey = capabilities["LT:Options"].accessKey;
+    }
 
     // Create a LambdaTest session call if target includes 'lambdatest'
-    if (cdpHostname.includes("lambdatest")) {
+    if (cdpHostname && cdpHostname.includes("lambdatest")) {
       const sessionCreateResponse = await axios({
         method: "post",
         baseURL: `${protocol}//${cdpHost}`,
@@ -132,7 +137,7 @@ const closeBrowser = async (taikoContext) => {
       taikoContext.currentSpec &&
       taikoContext.currentSpec.isFailed
         ? "failed"
-        : "completed";
+        : "passed";
 
     // Call the delete session API if 'lambdatestSession' is set
     if (session && lambdatestSession) {
