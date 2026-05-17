@@ -1,8 +1,8 @@
-# Taiko Plugin for TestMu AI (Formerly LambdaTest)
+# Run Taiko Tests with Selenium on TestMu AI (Formerly LambdaTest)
 
 <p align="center">
   <a href="https://www.testmuai.com/"><img src="https://img.shields.io/badge/MADE%20BY%20TestMu%20AI-000000.svg?style=for-the-badge&labelColor=000" alt="Made by TestMu AI"></a>
-  <a href="https://www.npmjs.com/package/taiko-lambdatest"><img src="https://img.shields.io/npm/v/taiko-lambdatest.svg?style=for-the-badge&labelColor=000000" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/taiko"><img src="https://img.shields.io/npm/v/taiko.svg?style=for-the-badge&labelColor=000000" alt="Taiko version"></a>
   <a href="https://community.testmuai.com/"><img src="https://img.shields.io/badge/Join%20the%20community-blueviolet.svg?style=for-the-badge&labelColor=000000" alt="Community"></a>
 </p>
 
@@ -12,15 +12,35 @@ A plugin to run [Taiko](https://taiko.dev/) tests on TestMu AI (Formerly LambdaT
 
 [TestMu AI](https://www.testmuai.com/) (Formerly LambdaTest) is the world's first full-stack AI Agentic Quality Engineering platform that empowers teams to test intelligently, smarter, and ship faster. Built for scale, it offers a full-stack testing cloud with 10K+ real devices and 3,000+ browsers. With AI-native test management, MCP servers, and agent-based automation, TestMu AI supports Selenium, Appium, Playwright, and all major frameworks.
 
-With TestMu AI (Formerly LambdaTest), you can run Taiko tests across real browsers and operating systems.
+With TestMu AI (Formerly LambdaTest), you can run Taiko tests with Selenium across real browsers and operating systems.
 
 - [Sign up on TestMu AI](https://www.testmuai.com/register/) (Formerly LambdaTest).
-- Follow the [TestMu AI Documentation](https://www.testmuai.com/support/docs/) for the full setup walkthrough.
+- Follow the [TestMu AI documentation](https://www.testmuai.com/support/docs/) (Formerly LambdaTest) for the full setup walkthrough.
 
-### Installation
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) installed
+
+### Setup
 
 ```shell
 npm install taiko-lambdatest --save-dev
+```
+
+Set your credentials as environment variables.
+
+**macOS / Linux:**
+
+```bash
+export LT_USERNAME="YOUR_USERNAME"
+export LT_ACCESS_KEY="YOUR_ACCESS_KEY"
+```
+
+**Windows:**
+
+```bash
+set LT_USERNAME="YOUR_USERNAME"
+set LT_ACCESS_KEY="YOUR_ACCESS_KEY"
 ```
 
 ### Usage
@@ -61,13 +81,40 @@ describe('Taiko Tests', async () => {
 });
 ```
 
+### Run tests
+
+Run your Taiko test files using the Gauge CLI or npm scripts as configured in your project.
+
+View results on your TestMu AI dashboard.
+
+## Contributions
+
+Contributions are welcome. Open an issue to discuss your idea before submitting a pull request. When reporting bugs, include your Node.js version, OS, and Taiko version.
+
+## TestMu AI (Formerly LambdaTest) Community
+
+Connect with testers and developers in the [TestMu AI Community](https://community.testmuai.com/). Ask questions, share what you are building, and discuss best practices in test automation and DevOps.
+
+## TestMu AI (Formerly LambdaTest) Certifications
+
+Earn free [TestMu AI Certifications](https://www.testmuai.com/certifications/) for testers, developers, and QA engineers. Validate your skills in Selenium, Cypress, Playwright, Appium, Espresso and more. Industry-recognized, shareable on LinkedIn, and built by practitioners, not marketers.
+
+## Learning Resources by TestMu AI (Formerly LambdaTest)
+
+Learn modern testing through tutorials, guides, videos, and weekly updates:
+
+* [TestMu AI Blog](https://www.testmuai.com/blog/)
+* [TestMu AI Learning Hub](https://www.testmuai.com/learning-hub/)
+* [TestMu AI on YouTube](https://www.youtube.com/@TestMuAI)
+* [TestMu AI Newsletter](https://www.testmuai.com/newsletter/)
+
 ## LambdaTest is Now TestMu AI
 
 On **January 12, 2026**, [LambdaTest evolved to TestMu AI](https://www.testmuai.com/lambdatest-is-now-testmuai/), the world's first fully autonomous **Agentic AI Quality Engineering Platform**.
 
 Same team. Same infrastructure. Same customer accounts. All existing LambdaTest logins, scripts, capabilities, and integrations continue to work without change.
 
-ð Find the new home for [LambdaTest](https://www.testmuai.com).
+👉 Find the new home for [LambdaTest](https://www.testmuai.com).
 
 ### How LambdaTest Evolved into TestMu AI
 
